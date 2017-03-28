@@ -540,13 +540,14 @@ const windowIsDefined = (typeof window === "object");
 				}
 
 				const createAndAppendTooltipSubElements = function(tooltipElem) {
-					var arrow = document.createElement("div");
-					arrow.className = "tooltip-arrow";
+					// tooltip-arrow deprecated in bootstrap4
+					// var arrow = document.createElement("div");
+					// arrow.className = "tooltip-arrow";
 
 					var inner = document.createElement("div");
 					inner.className = "tooltip-inner";
 
-					tooltipElem.appendChild(arrow);
+					// tooltipElem.appendChild(arrow);
 					tooltipElem.appendChild(inner);
 				};
 
@@ -1126,21 +1127,21 @@ const windowIsDefined = (typeof window === "object");
 			},
 			_showTooltip: function() {
 				if (this.options.tooltip_split === false ){
-					this._addClass(this.tooltip, 'in');
+					this._addClass(this.tooltip, 'show');
 					this.tooltip_min.style.display = 'none';
 					this.tooltip_max.style.display = 'none';
 			    } else {
-					this._addClass(this.tooltip_min, 'in');
-					this._addClass(this.tooltip_max, 'in');
+					this._addClass(this.tooltip_min, 'show');
+					this._addClass(this.tooltip_max, 'show');
 					this.tooltip.style.display = 'none';
 				}
 				this._state.over = true;
 			},
 			_hideTooltip: function() {
 				if (this._state.inDrag === false && this.alwaysShowTooltip !== true) {
-					this._removeClass(this.tooltip, 'in');
-					this._removeClass(this.tooltip_min, 'in');
-					this._removeClass(this.tooltip_max, 'in');
+					this._removeClass(this.tooltip, 'show');
+					this._removeClass(this.tooltip_min, 'show');
+					this._removeClass(this.tooltip_max, 'show');
 				}
 				this._state.over = false;
 			},
@@ -1893,17 +1894,17 @@ const windowIsDefined = (typeof window === "object");
 					}
 					var oppositeSide = (tooltipPos === 'left') ? 'right' : 'left';
 					tooltips.forEach(function(tooltip){
-						this._addClass(tooltip, tooltipPos);
+						this._addClass(tooltip, 'tooltip-' + tooltipPos);
 						tooltip.style[oppositeSide] = '100%';
 					}.bind(this));
 				} else if(this.options.tooltip_position === 'bottom') {
 					tooltips.forEach(function(tooltip){
-						this._addClass(tooltip, 'bottom');
+						this._addClass(tooltip, 'tooltip-bottom');
 						tooltip.style.top = 22 + 'px';
 					}.bind(this));
 				} else {
 					tooltips.forEach(function(tooltip){
-						this._addClass(tooltip, 'top');
+						this._addClass(tooltip, 'tooltip-top');
 						tooltip.style.top = -this.tooltip.outerHeight - 14 + 'px';
 					}.bind(this));
 				}
