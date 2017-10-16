@@ -540,14 +540,14 @@ const windowIsDefined = (typeof window === "object");
 				}
 
 				const createAndAppendTooltipSubElements = function(tooltipElem) {
-					// tooltip-arrow deprecated in bootstrap4
-					// var arrow = document.createElement("div");
-					// arrow.className = "tooltip-arrow";
+					// tooltip-arrow changed to arrow in bootstrap4
+					var arrow = document.createElement("div");
+					arrow.className = "arrow";
 
 					var inner = document.createElement("div");
 					inner.className = "tooltip-inner";
 
-					// tooltipElem.appendChild(arrow);
+					tooltipElem.appendChild(arrow);
 					tooltipElem.appendChild(inner);
 				};
 
@@ -1899,12 +1899,12 @@ const windowIsDefined = (typeof window === "object");
 					}.bind(this));
 				} else if(this.options.tooltip_position === 'bottom') {
 					tooltips.forEach(function(tooltip){
-						this._addClass(tooltip, 'tooltip-bottom');
+						this._addClass(tooltip, 'bs-tooltip-bottom');
 						tooltip.style.top = 22 + 'px';
 					}.bind(this));
 				} else {
 					tooltips.forEach(function(tooltip){
-						this._addClass(tooltip, 'tooltip-top');
+						this._addClass(tooltip, 'bs-tooltip-top');
 						tooltip.style.top = -this.tooltip.outerHeight - 14 + 'px';
 					}.bind(this));
 				}
