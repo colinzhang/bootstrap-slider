@@ -213,8 +213,10 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 	})($);
 
 	/*************************************************
- 			BOOTSTRAP-SLIDER SOURCE CODE
- 	**************************************************/
+ 
+ 		BOOTSTRAP-SLIDER SOURCE CODE
+ 
+ **************************************************/
 
 	(function ($) {
 
@@ -321,8 +323,8 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 		};
 
 		/*************************************************
-  						CONSTRUCTOR
-  	**************************************************/
+  							CONSTRUCTOR
+  		**************************************************/
 		Slider = function Slider(element, options) {
 			createNewSlider.call(this, element, options);
 			return this;
@@ -355,8 +357,8 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 			}
 
 			/*************************************************
-   					Process Options
-   	**************************************************/
+   						Process Options
+   		**************************************************/
 			options = options ? options : {};
 			var optionTypes = Object.keys(this.defaultOptions);
 
@@ -411,8 +413,8 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 			}
 
 			/*************************************************
-   					Create Markup
-   	**************************************************/
+   						Create Markup
+   		**************************************************/
 
 			var origWidth = this.element.style.width;
 			var updateSlider = false;
@@ -528,8 +530,9 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 				}
 
 				var createAndAppendTooltipSubElements = function createAndAppendTooltipSubElements(tooltipElem) {
+					// tooltip-arrow changed to arrow in bootstrap4
 					var arrow = document.createElement("div");
-					arrow.className = "tooltip-arrow";
+					arrow.className = "arrow";
 
 					var inner = document.createElement("div");
 					inner.className = "tooltip-inner";
@@ -583,8 +586,8 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 			}
 
 			/*************************************************
-   						Setup
-   	**************************************************/
+   							Setup
+   		**************************************************/
 			this.eventToCallbackMap = {};
 			this.sliderElem.id = this.options.id;
 
@@ -725,8 +728,8 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 			this.setValue(this._state.value);
 
 			/******************************************
-   				Bind Event Listeners
-   	******************************************/
+   					Bind Event Listeners
+   		******************************************/
 
 			// Bind keyboard handlers
 			this.handle1Keydown = this._keydown.bind(this, 0);
@@ -810,10 +813,10 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 		}
 
 		/*************************************************
-  				INSTANCE PROPERTIES/METHODS
-  	- Any methods bound to the prototype are considered
+  					INSTANCE PROPERTIES/METHODS
+  		- Any methods bound to the prototype are considered
   part of the plugin's `public` interface
-  	**************************************************/
+  		**************************************************/
 		Slider.prototype = {
 			_init: function _init() {}, // NOTE: Must exist to support bridget
 
@@ -1014,11 +1017,11 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 			},
 
 			/******************************+
-   				HELPERS
-   	- Any method that is not part of the public interface.
+   					HELPERS
+   		- Any method that is not part of the public interface.
    - Place it underneath this comment block and write its signature like so:
-   		_fnName : function() {...}
-   	********************************/
+   			_fnName : function() {...}
+   		********************************/
 			_removeSliderEventHandlers: function _removeSliderEventHandlers() {
 				// Remove keydown event listeners
 				this.handle1.removeEventListener("keydown", this.handle1Keydown, false);
@@ -1089,21 +1092,21 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 			},
 			_showTooltip: function _showTooltip() {
 				if (this.options.tooltip_split === false) {
-					this._addClass(this.tooltip, 'in');
+					this._addClass(this.tooltip, 'show');
 					this.tooltip_min.style.display = 'none';
 					this.tooltip_max.style.display = 'none';
 				} else {
-					this._addClass(this.tooltip_min, 'in');
-					this._addClass(this.tooltip_max, 'in');
+					this._addClass(this.tooltip_min, 'show');
+					this._addClass(this.tooltip_max, 'show');
 					this.tooltip.style.display = 'none';
 				}
 				this._state.over = true;
 			},
 			_hideTooltip: function _hideTooltip() {
 				if (this._state.inDrag === false && this.alwaysShowTooltip !== true) {
-					this._removeClass(this.tooltip, 'in');
-					this._removeClass(this.tooltip_min, 'in');
-					this._removeClass(this.tooltip_max, 'in');
+					this._removeClass(this.tooltip, 'show');
+					this._removeClass(this.tooltip_min, 'show');
+					this._removeClass(this.tooltip_max, 'show');
 				}
 				this._state.over = false;
 			},
@@ -1857,17 +1860,17 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 					}
 					var oppositeSide = tooltipPos === 'left' ? 'right' : 'left';
 					tooltips.forEach(function (tooltip) {
-						this._addClass(tooltip, tooltipPos);
+						this._addClass(tooltip, 'tooltip-' + tooltipPos);
 						tooltip.style[oppositeSide] = '100%';
 					}.bind(this));
 				} else if (this.options.tooltip_position === 'bottom') {
 					tooltips.forEach(function (tooltip) {
-						this._addClass(tooltip, 'bottom');
+						this._addClass(tooltip, 'bs-tooltip-bottom');
 						tooltip.style.top = 22 + 'px';
 					}.bind(this));
 				} else {
 					tooltips.forEach(function (tooltip) {
-						this._addClass(tooltip, 'top');
+						this._addClass(tooltip, 'bs-tooltip-top');
 						tooltip.style.top = -this.tooltip.outerHeight - 14 + 'px';
 					}.bind(this));
 				}
@@ -1875,28 +1878,26 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 		};
 
 		/*********************************
-  		Attach to global namespace
-  	*********************************/
+  			Attach to global namespace
+  		*********************************/
 		if ($ && $.fn) {
-			(function () {
-				var autoRegisterNamespace = void 0;
+			var autoRegisterNamespace = void 0;
 
-				if (!$.fn.slider) {
-					$.bridget(NAMESPACE_MAIN, Slider);
-					autoRegisterNamespace = NAMESPACE_MAIN;
-				} else {
-					if (windowIsDefined) {
-						window.console.warn("bootstrap-slider.js - WARNING: $.fn.slider namespace is already bound. Use the $.fn.bootstrapSlider namespace instead.");
-					}
-					autoRegisterNamespace = NAMESPACE_ALTERNATE;
+			if (!$.fn.slider) {
+				$.bridget(NAMESPACE_MAIN, Slider);
+				autoRegisterNamespace = NAMESPACE_MAIN;
+			} else {
+				if (windowIsDefined) {
+					window.console.warn("bootstrap-slider.js - WARNING: $.fn.slider namespace is already bound. Use the $.fn.bootstrapSlider namespace instead.");
 				}
-				$.bridget(NAMESPACE_ALTERNATE, Slider);
+				autoRegisterNamespace = NAMESPACE_ALTERNATE;
+			}
+			$.bridget(NAMESPACE_ALTERNATE, Slider);
 
-				// Auto-Register data-provide="slider" Elements
-				$(function () {
-					$("input[data-provide=slider]")[autoRegisterNamespace]();
-				});
-			})();
+			// Auto-Register data-provide="slider" Elements
+			$(function () {
+				$("input[data-provide=slider]")[autoRegisterNamespace]();
+			});
 		}
 	})($);
 
