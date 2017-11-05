@@ -632,6 +632,22 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 					this._removeProperty(handle, 'top');
 				}, this);
 
+				this.tickLabels = [];
+				if (Array.isArray(this.options.ticks_labels) && this.options.ticks_labels.length > 0) {
+					this.tickLabelContainer.innerHTML = '';
+
+					for (i = 0; i < this.options.ticks_labels.length; i++) {
+						var label = document.createElement('div');
+						var noTickPositionsSpecified = this.options.ticks_positions.length === 0;
+						var tickLabelsIndex = this.options.reversed && noTickPositionsSpecified ? this.options.ticks_labels.length - (i + 1) : i;
+						label.className = 'slider-tick-label';
+						label.innerHTML = this.options.ticks_labels[tickLabelsIndex];
+
+						this.tickLabels.push(label);
+						this.tickLabelContainer.appendChild(label);
+					}
+				}
+
 				// Undo inline styles and classes on tooltips
 				[this.tooltip, this.tooltip_min, this.tooltip_max].forEach(function (tooltip) {
 					this._removeProperty(tooltip, 'left');
